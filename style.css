@@ -1,0 +1,63 @@
+/*
+Theme Name: Engineering Theme
+Theme URI: https://aman-almyah.local
+Author: Aman Almyah
+Author URI: https://aman-almyah.local
+Description: Custom Arabic RTL theme for an engineering and waterproofing company.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.9
+Requires PHP: 8.0
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: engineering-theme
+Tags: rtl-language, custom-colors, custom-logo, full-width-template
+*/
+
+/* =====================================================
+   CSS Custom Properties
+   ===================================================== */
+:root {
+  --color-primary: #3BAEDF;
+  --color-dark:    #1E2D3D;
+  --color-text:    #2C3E50;
+  --header-height: 80px;
+  --font-main:     'Cairo', sans-serif;
+}
+
+/* =====================================================
+   Base Resets
+   ===================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  direction: rtl;
+  text-align: right;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
