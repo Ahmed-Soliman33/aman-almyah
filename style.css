@@ -18,11 +18,11 @@ Tags: rtl-language, custom-colors, custom-logo, full-width-template
    CSS Custom Properties
    ===================================================== */
 :root {
-  --color-primary: #3BAEDF;
-  --color-dark:    #1E2D3D;
-  --color-text:    #2C3E50;
+  --color-primary: #0651a2;
+  --color-dark: #1e2d3d;
+  --color-text: #2c3e50;
   --header-height: 80px;
-  --font-main:     'Cairo', sans-serif;
+  --font-main: "Tajawal", sans-serif;
 }
 
 /* =====================================================

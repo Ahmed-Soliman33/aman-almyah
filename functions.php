@@ -59,7 +59,7 @@ add_action( 'wp_enqueue_scripts', 'et_assets' );
 // -------------------------------------------------------
 function et_body_classes( array $classes ): array {
 	$classes[] = 'rtl';
-	$classes[] = 'font-cairo';
+	$classes[] = 'font-tajawal';
 	return $classes;
 }
 add_filter( 'body_class', 'et_body_classes' );

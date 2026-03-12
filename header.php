@@ -4,10 +4,10 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Cairo Font (Google Fonts) -->
+<!-- Tajawal Font (Google Fonts) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
 
 <!-- Tailwind CSS Play CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -16,12 +16,12 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        primary:  '#3BAEDF',
+        primary:  '#0651A2',
         dark:     '#1E2D3D',
         charcoal: '#2C3E50',
       },
       fontFamily: {
-        cairo: ['Cairo', 'sans-serif'],
+        tajawal: ['Tajawal', 'sans-serif'],
       },
     },
   },
@@ -31,7 +31,7 @@ tailwind.config = {
 <?php wp_head(); ?>
 </head>
 
-<body <?php body_class( 'font-cairo bg-white antialiased' ); ?>>
+<body <?php body_class( 'font-tajawal bg-white antialiased' ); ?>>
 <?php wp_body_open(); ?>
 
 <!-- ============================================================
