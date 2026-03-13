@@ -8,7 +8,7 @@
 get_header();
 ?>
 
-<main>
+<main class="relative z-0 flex flex-col mx-auto" style="font-family: var(--font-main);">
 
   <!-- ============================================================
        Hero Section
@@ -64,11 +64,35 @@ get_header();
       bottom: -3px; right: 0;
       height: 3px; width: 0;
       background: linear-gradient(to left, #0651A2, transparent);
-      border-radius: 99px;
+      border-radius: 30%;
     }
     .hero-accent.is-visible::after {
       animation: shimmer-line .8s .5s cubic-bezier(.22,.61,.36,1) forwards;
     }
+
+
+    #banner {
+      animation: hero-fade-in 1s .9s both;
+      max-width: 1400px; margin-left: auto; margin-right: auto;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+   @media (max-width: 1400px)  {
+    #banner {
+      border-radius: 20px;
+      margin-left: 24px;
+     }
+  }
+
+   @media (max-width: 700px)  {
+    #banner { 
+      margin-left: 0;
+      border-radius: 20px;
+      margin-right: 0;
+    }
+}
+
 
     /* ════════════════════════════
        BUTTONS
@@ -182,186 +206,130 @@ get_header();
     }
     .reveal.revealed { opacity: 1; transform: none; }
 
-    /* ════════════════════════════
+    /* ════════════════════════════════════════
        MOBILE HERO  (< 1024 px)
-       Compact single-card:
-       - fixed height (no double-screen)
-       - image bottom-anchored (shows worker)
-       - deep gradient bottom zone for legible text
-       - stats as a frosted strip at the very bottom
-    ════════════════════════════ */
+       Split layout: image top, content card below
+    ════════════════════════════════════════ */
     @media (max-width: 1023px) {
 
+      /* Section: normal block flow, no min-height tricks */
       #hero {
-        /* Reset desktop values */
         flex-direction: column !important;
         min-height: 0 !important;
+        height: auto !important;
         padding-top: 0 !important;
         margin-top: 0 !important;
-
-        /* Controlled height — fits in one screen, no overflow scroll */
-        height: 100svh;
-        max-height: 860px;
-        min-height: 600px;
-
-        /* Nice rounded bottom edge */
-        border-radius: 0 0 32px 32px;
-        overflow: hidden;
-      }
-
-      /* Image fills the entire section */
-      #hero .hero-img-wrap {
-        position: absolute !important;
-        inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        min-height: 0 !important;
-      }
-
-      /* Anchor to bottom so the worker is always visible */
-      #hero #hero-img {
-        object-position: center bottom !important;
+        overflow: visible !important;
+        border-radius: 0 !important;
       }
 
       /* Hide desktop panel */
       #hero .hero-desktop-panel { display: none !important; }
 
-      /* Show mobile panel */
-      #hero .hero-mobile-panel  { display: flex !important; }
+      /* Show mobile content card */
+      #hero .hero-mobile-panel  { display: block !important; }
     }
 
-    /* ── Gradient layers ──
-       Layer 1 (bottom): opaque navy — content zone
-       Layer 2 (mid):    soft fade — image visible through
-       Layer 3 (top):    near-transparent — sky shows */
-    .hero-mob-gradient {
-      background:
-        linear-gradient(
-          to top,
-          rgba(12,24,38,1)    0%,
-          rgba(12,24,38,.95)  18%,
-          rgba(12,24,38,.70)  38%,
-          rgba(12,24,38,.28)  58%,
-          rgba(12,24,38,.06)  75%,
-          transparent         100%
-        );
+    /* ── Mobile content card (white, below image) ── */
+    .hero-mob-card {
+      background: #fff;
+      padding: 24px 20px 28px;
     }
 
-    /* ── Stats frosted strip ── */
+    /* ── Stats strip (on white background) ── */
     .hero-stats-strip {
-      background: rgba(255,255,255,.065);
-      border: 1px solid rgba(255,255,255,.11);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: #f4f7fb;
+      border: 1px solid #e4eaf3;
+      border-radius: 16px;
     }
   </style>
 
   <section
     id="hero"
-    class="relative flex -mt-10 lg:flex-row-reverse min-h-screen overflow-hidden"
+    class="relative flex flex-col lg:flex-row -mt-10 min-h-screen overflow-hidden"
     style="padding-top: var(--header-height);"
     aria-label="القسم الرئيسي"
   >
 
     <!-- ══════════════════════════════════════
-         IMAGE PANEL  (desktop right / mobile bg)
+         MOBILE IMAGE  (top of stack, mobile only)
     ══════════════════════════════════════ -->
-    <div class="hero-img-wrap relative w-full lg:w-[45%] min-h-[50vh] lg:min-h-screen overflow-hidden">
+    <div class="hero-img-wrap w-full lg:hidden overflow-hidden">
+      <picture class="hero-picture block">
+        <img
+          src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/main-hero-image.png' ); ?>"
+          alt="فريق عمل أمان الميه على سطح مبنى"
+          class="w-full h-auto object-cover hero-img-pos"
+          style="object-position: center 30%;"
+          loading="eager"
+          fetchpriority="high"
+          width="902"
+          height="732"
+        >
+      </picture>
+    </div><!-- /mobile image panel -->
 
-      <img
-        id="hero-img"
-        src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/main-hero-image.png' ); ?>"
-        alt="فريق عمل أمان الميه على سطح مبنى"
-        class="hero-anim-img w-full h-full object-cover object-right-top absolute inset-0"
-        loading="eager"
-        fetchpriority="high"
-        width="902"
-        height="732"
-      >
+    <!-- ══ MOBILE CONTENT CARD — sits below image ══ -->
+    <div class="hero-mobile-panel hidden text-right">
+      <div class="hero-mob-card">
 
-      <!-- Desktop edge blend -->
-      <div class="hidden lg:block absolute inset-0 pointer-events-none"
-           style="background: linear-gradient(to left, rgba(255,255,255,.06) 0%, transparent 55%);"
-           aria-hidden="true"></div>
+        <!-- Badge -->
+        <div class="hero-mob-item inline-flex items-center gap-2 mb-4 px-3.5 py-1.5 rounded-full text-xs font-bold"
+             style="background:rgba(6,81,162,.08); border:1px solid rgba(6,81,162,.18); color:#0651A2;">
+          <span class="w-1.5 h-1.5 rounded-full inline-block" style="background:#0651A2;"></span>
+          حلول هندسية متخصصة
+        </div>
 
-      <!-- ══ MOBILE PANEL — full overlay inside image panel ══ -->
-      <div class="hero-mobile-panel hidden absolute inset-0 flex-col justify-end z-10">
+        <!-- Headline -->
+        <h1 class="hero-mob-item font-black leading-tight mb-3"
+            style="font-size:clamp(1.65rem,7vw,2.1rem); letter-spacing:-.02em; color:#1E2D3D;">
+          حلول هندسية دقيقة...<br>
+          <span class="hero-accent is-visible" style="color:#0651A2;">حماية تدوم لسنوات</span>
+        </h1>
 
-        <!-- Gradient backdrop -->
-        <div class="hero-mob-gradient absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+        <!-- Sub-copy -->
+        <p class="hero-mob-item leading-relaxed mb-5" style="font-size:.9rem; color:#5a6a7e;">
+          كشف تسريبات المياه، العزل الحراري والمائي، وأعمال الأسطح بأعلى معايير الجودة للمنشآت السكنية والتجارية.
+        </p>
 
-        <!-- All content above gradient -->
-        <div class="relative z-10 px-5 pb-6 text-right">
+       
 
-          <!-- Badge pill -->
-          <div class="hero-mob-item inline-flex items-center gap-2 mb-3.5 px-3.5 py-1.5 rounded-full text-xs font-bold"
-               style="background:rgba(6,81,162,.16); border:1px solid rgba(6,81,162,.32); color:#5b8fd4;">
-            <span class="w-1.5 h-1.5 rounded-full inline-block" style="background:#0651A2;"></span>
-            حلول هندسية متخصصة
-          </div>
-
-          <!-- Headline -->
-          <h1 class="hero-mob-item font-black text-white leading-tight mb-2.5"
-              style="font-size:clamp(1.6rem,6vw,2.1rem); letter-spacing:-.015em;">
-            حلول هندسية دقيقة...<br>
-            <span class="hero-accent is-visible" style="color:#0651A2;">حماية تدوم لسنوات</span>
-          </h1>
-
-          <!-- Sub-copy -->
-          <p class="hero-mob-item text-white/60 leading-relaxed mb-5"
-             style="font-size:.85rem; max-width:28ch;">
-            كشف التسريبات، العزل الحراري والمائي، وأعمال الأسطح بأعلى معايير الجودة.
-          </p>
-
-          <!-- CTA row -->
-          <div class="hero-mob-item flex gap-2.5 mb-4">
-            <a href="#services"
-               class="btn-primary-hero flex-1 text-white font-bold text-sm py-3.5 rounded-2xl text-center"
-               style="background:#0651A2; box-shadow:0 8px 22px rgba(6,81,162,.38);">
-              اطلب خدماتنا
-            </a>
-            <a href="https://wa.me/966500000000" target="_blank" rel="noopener noreferrer"
-               class="btn-outline-hero flex-1 text-white font-bold text-sm py-3.5 rounded-2xl text-center"
-               style="border: 1.5px solid rgba(255,255,255,.28); background:rgba(255,255,255,.07);">
-              تواصل معنا
-            </a>
-          </div>
-
-          <!-- Stats strip -->
-          <div class="hero-mob-item hero-stats-strip flex rounded-2xl">
-            <div class="flex-1 flex flex-col items-center py-3 px-1">
-              <span class="text-white font-black text-xl leading-none" data-count="500" data-suffix="+">0</span>
-              <span class="text-white/50 mt-1 font-semibold" style="font-size:.65rem;">مشروع منجز</span>
-            </div>
-            <div class="w-px bg-white/10 self-stretch my-2.5"></div>
-            <div class="flex-1 flex flex-col items-center py-3 px-1">
-              <span class="font-black text-xl leading-none" style="color:#0651A2;" data-count="10" data-suffix="+">0</span>
-              <span class="text-white/50 mt-1 font-semibold" style="font-size:.65rem;">سنوات خبرة</span>
-            </div>
-            <div class="w-px bg-white/10 self-stretch my-2.5"></div>
-            <div class="flex-1 flex flex-col items-center py-3 px-1">
-              <span class="text-white font-black text-xl leading-none" data-count="98" data-suffix="٪">0</span>
-              <span class="text-white/50 mt-1 font-semibold" style="font-size:.65rem;">رضا العملاء</span>
-            </div>
-          </div>
-
-        </div><!-- /content -->
-      </div><!-- /hero-mobile-panel -->
-
-    </div><!-- /image panel -->
+      </div><!-- /hero-mob-card -->
+    </div><!-- /hero-mobile-panel -->
 
     <!-- ══════════════════════════════════════
          DESKTOP CONTENT PANEL
     ══════════════════════════════════════ -->
-    <div class="hero-desktop-panel relative flex-1 bg-white hidden lg:flex flex-col justify-center px-16 py-0 text-right">
+    <div class="hero-desktop-panel relative w-full bg-white hidden lg:flex flex-col justify-center px-16 py-0 text-right overflow-hidden">
 
-      <!-- Decorative dot pattern -->
+      <!-- Decorative dot pattern (right side) -->
       <div class="hero-shape-decor absolute top-0 right-0 w-64 h-full opacity-20 pointer-events-none"
            style="background-image:url('<?php echo esc_url( get_template_directory_uri() . '/assets/images/hero-shape.png' ); ?>'); background-repeat:no-repeat; background-position:top left; background-size:contain;"
            aria-hidden="true"></div>
 
+      <!-- Hero image — decorative background, pinned to far left -->
+      <div class="hero-anim-img absolute top-0 left-0 h-full pointer-events-none"
+           style="width: clamp(340px, 60%, 900px);"
+           aria-hidden="true">
+        <img
+          id="hero-img"
+          src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/main-hero-image.png' ); ?>"
+          alt=""
+          class="w-full h-full object-cover"
+          style="object-position: center top;"
+          loading="eager"
+          fetchpriority="high"
+          width="902"
+          height="732"
+        >
+        <!-- Soft right-edge fade into white content area -->
+        <div class="absolute inset-0 pointer-events-none"
+             style="background: linear-gradient(to right, transparent 55%, rgba(255,255,255,.85) 85%, #fff 100%);"
+             aria-hidden="true"></div>
+      </div>
 
-      <div class="relative z-10 max-w-xl mr-0">
+
+      <div class="relative z-10 max-w-xl mr-0 min-[1350px]:mr-32">
 
         <!-- Badge -->
         <div class="hero-anim inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-xs font-bold px-4 py-1.5 rounded-full mb-6"
@@ -377,7 +345,7 @@ get_header();
         </h1>
 
         <!-- Body -->
-        <p class="hero-anim text-gray-500 text-lg leading-loose mb-10" style="animation-delay:.25s;">
+        <p class="hero-anim text-gray-500 text-lg font-[500] leading-relaxed mb-10" style="animation-delay:.25s;">
           حلول هندسية متخصصة في كشف تسريبات المياه، العزل الحراري والمائي، وأعمال الأسطح.
           نخدم المنشآت السكنية والتجارية والصناعية بأعلى معايير الجودة.
         </p>
@@ -385,12 +353,12 @@ get_header();
         <!-- CTA Buttons -->
         <div class="hero-anim flex flex-wrap items-center gap-4" style="animation-delay:.35s;">
           <a href="#services"
-             class="btn-primary-hero bg-primary text-white font-bold text-sm px-10 py-3.5 rounded-full shadow-lg shadow-primary/30">
-            <span>اطلب خدماتنا</span>
+             class="btn-primary-hero bg-primary  text-white font-bold text-md px-20 py-2.5 rounded-full shadow-lg shadow-primary/30">
+            <span class="translate-y-2">اطلب خدماتنا</span>
           </a>
           <a href="https://wa.me/966500000000" target="_blank" rel="noopener noreferrer"
-             class="btn-outline-hero border-2 border-charcoal text-charcoal font-bold text-sm px-10 py-3 rounded-full">
-            <span>تواصل معنا</span>
+             class="btn-outline-hero border-2 border-charcoal text-charcoal font-bold text-md px-20 py-2.5 rounded-full">
+            <span class="translate-y-2">تواصل معنا</span>
           </a>
         </div>
 
@@ -454,12 +422,12 @@ get_header();
 
     document.querySelectorAll('[data-count]').forEach(function (el) { counterIO.observe(el); });
 
-    /* 4. Desktop parallax (respects prefers-reduced-motion) */
+    /* 4. Desktop parallax on hero bg image (respects prefers-reduced-motion) */
     var heroImg = document.getElementById('hero-img');
     var noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (heroImg && !noMotion && window.innerWidth >= 1024) {
       window.addEventListener('scroll', function () {
-        heroImg.style.transform = 'translateY(' + (window.scrollY * 0.12) + 'px)';
+        heroImg.style.transform = 'translateY(' + (window.scrollY * 0.08) + 'px)';
       }, { passive: true });
     }
 
@@ -531,14 +499,22 @@ get_header();
 
   <!-- Banner Section -->
   <section id="banner" class="w-full mt-20 mb-32">
-    <picture>
-      <source media="(min-width: 768px)" srcset="<?php echo get_template_directory_uri(); ?>/assets/images/banner-desktop.jpg">
-      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-desktop.jpg"
-           alt="عوازلنا.. حماية تدوم وراحة بال مضمونة"
-           class="w-full h-auto object-cover block"
-           loading="lazy">
-    </picture>
+    <div style="max-width:1400px; margin-left:auto; margin-right:auto; padding-left:30px; padding-right:30px;">
+      <picture>
+        <source media="(min-width: 768px)" srcset="<?php echo get_template_directory_uri(); ?>/assets/images/banner-desktop.jpg">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-desktop.jpg"
+             alt="عوازلنا.. حماية تدوم وراحة بال مضمونة"
+             class="w-full h-auto object-cover block"
+             loading="lazy">
+      </picture>
+    </div>
   </section><!-- /banner -->
+
+  <style>
+    @media (max-width: 760px) {
+      #banner > div { padding-left: 10px !important; padding-right: 10px !important; border-radius: 20px; }
+    }
+  </style>
 
   <!-- About Section -->
   <section id="about"
