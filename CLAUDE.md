@@ -20,8 +20,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | **Environment** | Local by Flywheel (`http://aman-almyah.local`) |
 | **WordPress** | 6.9+ |
 | **PHP** | 8.0+ |
-| **Theme slug** | `engineering-theme` |
-| **Theme path** | `app/public/wp-content/themes/engineering-theme/` |
+| **Theme slug** | `aman-almyah` |
+| **Theme path** | `app/public/wp-content/themes/aman-almyah/` |
 | **DB** | MySQL, db: `local`, user/pass: `root`/`root` (local only) |
 
 ---
@@ -30,7 +30,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Files
 ```
-engineering-theme/
+aman-almyah/
 ├── functions.php          # Theme bootstrap — supports, menus, enqueue
 ├── header.php             # Sticky navbar, Tailwind config, Google Fonts
 ├── footer.php             # 3-column footer, copyright
@@ -63,7 +63,7 @@ There is **no** `package.json`, `composer.json`, npm, webpack, or any build pipe
 | Token | Hex | Tailwind class | Usage |
 |---|---|---|---|
 | Primary | `#0651A2` | `primary` | Buttons, links, accents, stats highlight |
-| Dark | `#1E2D3D` | `dark` | Headlines, deep backgrounds |
+| Dark | `#011020` | `dark` | Headlines, deep backgrounds |
 | Charcoal | `#2C3E50` | `charcoal` | Body text, nav links |
 
 **IMPORTANT**: The primary color is defined in **three places** — keep them in sync:
