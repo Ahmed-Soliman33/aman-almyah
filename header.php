@@ -13,6 +13,9 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
+  corePlugins: {
+    preflight: true,
+  },
   theme: {
     extend: {
       colors: {

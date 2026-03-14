@@ -45,7 +45,10 @@ engineering-theme/
         ├── hero-shape.png         # Decorative dot grid — desktop hero bg
         ├── banner-desktop.jpg     # Full-width banner section (76 KB)
         ├── about-bg.png           # About section background — dark navy wave (449 KB)
-        └── about-worker.jpg       # About section worker photo (460×550, 127 KB)
+        ├── about-worker.jpg       # About section worker photo (460×550, 127 KB)
+        ├── results-section.png    # Results & Trust section image
+        ├── service-leaks.jpg      # Services card — water leak detection (referenced, not yet added)
+        └── service-renovation.jpg # Services card — renovation/maintenance (referenced, not yet added)
 ```
 
 ### No build system
@@ -211,6 +214,64 @@ Full-width image section using `<picture>`:
 
 ---
 
+### Section 4 — Why Choose Us (`#why-us`)
+
+```html
+<section id="why-us">
+```
+- Heading: "ما يجعلنا الخيار الأفضل"
+- Layout: 5-column grid (`.why-grid`) — all columns equal width, `direction: rtl`
+- White card container with border + box-shadow, `border-radius: 28px`
+- 5 value pillars, each (`.why-col`): SVG icon (54×54, dark navy `#04366C`) + title + description text
+  1. الجودة (Quality)
+  2. الابتكار (Innovation)
+  3. الاستدامة (Sustainability)
+  4. الشفافية (Transparency)
+  5. المصداقية (Credibility)
+- Entrance animation: columns start `opacity:0`, staggered via CSS `transition-delay` on `.in-view` class added by IntersectionObserver
+- **Mobile**: 2-column grid on small screens, single column fallback
+
+---
+
+### Section 5 — Services (`#services`)
+
+```html
+<section id="services">
+```
+- Heading: "خدماتنا"
+- Layout: `.services-grid` — 3 equal cards side by side
+- Each `.service-card` has:
+  - `.service-card__clip`: clipping container for image + overlay
+  - `.service-card__img`: photo, lazy-loaded
+  - `.service-card__overlay`: dark overlay on hover
+  - `.service-card__bottom`: wave SVG + title (white text)
+  - Wave SVG shape (`#5C6369` fill) creates a curved title bar at card bottom
+- 3 services: كشف وصيانة تسريبات المياه, أعمال العوازل, ترميم وصيانة المنازل
+- **Images used**: `service-leaks.jpg`, `about-worker.jpg` (placeholder), `service-renovation.jpg`
+  - Note: `service-leaks.jpg` and `service-renovation.jpg` are **not yet in assets/images/** — need to be added
+- **JS behaviors**: IntersectionObserver adds `.in-view` class per card; 3-D tilt + glow on `mousemove` (`perspective(800px) rotateX/Y`), reset on `mouseleave`
+
+---
+
+### Section 6 — Results & Trust (`#results`)
+
+```html
+<section id="results">
+```
+- Layout: 2-column grid (`.results-inner`), `max-width: 1300px`, RTL — text column RIGHT, image LEFT
+- **Image column** (`.results-img-wrap`): `results-section.png`, `640×520`, overlay div for subtle effect
+- **Text column** (`.results-text`):
+  - Heading: "نتائج ملموسة... وثقة مستمرة"
+  - Body paragraph describing track record
+  - 3 stat counters using `data-count` / `data-suffix` (same JS mechanism as hero):
+    - 24 ساعة — response time
+    - 980+ — clients served
+    - 1250+ — completed projects
+  - Two CTAs: `.results-btn-primary` (→ `#services`) and `.results-btn-outline` (→ WhatsApp)
+- **JS**: IntersectionObserver on `#results` adds `.in-view` class — triggers staggered CSS transitions on `.results-heading`, `.results-desc`, `.results-stats`, `.results-btns`, `.results-img-wrap`. Animated counters use the same `animateCount()` function from the hero section.
+
+---
+
 ## 6. RTL Rules — Always Follow These
 
 This is an Arabic RTL site. These rules are non-negotiable:
@@ -285,7 +346,7 @@ Copyright bar: dynamic year via `gmdate('Y')`, site name via `bloginfo('name')`.
 
 ## 10. How to Add New Sections
 
-1. Add the HTML **between `</section><!-- /about -->` and `</main>`** in `index.php`
+1. Add the HTML **after `</section><!-- /faq -->` and before `</main>`** in `index.php`
 2. For scroll-reveal animation, add class `reveal` to the section or its children
 3. Use `max-w-7xl mx-auto px-6` for consistent container width
 4. RTL grid: `grid grid-cols-1 lg:grid-cols-2 gap-12`
@@ -363,7 +424,6 @@ wp_enqueue_script(
 ## 14. What Is NOT Built Yet
 
 The following sections are referenced in navigation but have no content or templates:
-- `#services` — Services section
 - `#projects` — Projects/portfolio section
 - `#blog` — Blog/articles (no WP posts configured)
 - `#waterproofing`, `#insulation`, `#roofing`, `#maintenance` — Service detail sections
@@ -373,6 +433,29 @@ The following sections are referenced in navigation but have no content or templ
 - 404 page (`404.php`)
 
 The theme currently uses `index.php` as a catch-all for everything.
+
+### Section 7 — FAQ (`#faq`)
+
+```html
+<section id="faq">
+```
+- Heading: "الأسئلة الشائعة"
+- Layout: single column, `max-width: 900px`, white background, generous padding
+- **Accordion**: `<ul class="faq-list">` → `<li class="faq-item">` items. Each item has a `<button class="faq-btn">` (question + chevron icon) and a `<div class="faq-answer">` (answer text)
+- **Chevron**: custom SVG (`#5C6369`, 21×11px) rotates 180° via CSS when `.is-open` is present
+- **Answer transition**: `max-height: 0 → 600px` + `opacity 0 → 1` for smooth open/close. Only one item open at a time (siblings closed on click)
+- **Entrance animation**: section adds `.faq-visible` class via IntersectionObserver (threshold 0.08). Heading fades up, then each `.faq-item` staggered by 80ms increments
+- **Accessibility**: `aria-expanded` toggled on button, `role="region"` on answer panel, `:focus-visible` outline
+- **Hover**: question text transitions to `#0651A2` on hover
+- 6 Q&A items covering: leak detection, insulation warranty, payment methods, project duration, service coverage, free inspection
+
+**Do NOT add**: colored card backgrounds, icon bubbles per item, or heavy borders — design is intentionally bare/typographic.
+
+---
+
+**Missing assets** (referenced in code but not yet in `assets/images/`):
+- `service-leaks.jpg` — Services section card 1
+- `service-renovation.jpg` — Services section card 3
 
 ---
 
