@@ -94,6 +94,37 @@ get_header();
 }
 
 
+    /* ── Section Banners (reusable) ── */
+    .section-banner {
+      max-width: 1400px;
+      margin: 48px auto;
+      border-radius: 5px;
+      overflow: hidden;
+      line-height: 0; /* remove inline-block gap */
+    }
+    .section-banner__img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform .6s cubic-bezier(.22,.61,.36,1),
+                  opacity .4s ease;
+    }
+    .section-banner:hover .section-banner__img {
+      transform: scale(1.012);
+    }
+    @media (max-width: 1448px) {
+      .section-banner { margin-left: 24px; margin-right: 24px; }
+    }
+    @media (max-width: 700px) {
+      .section-banner { margin-left: 0; margin-right: 0; border-radius: 0; }
+    }
+
+    /* Scroll-reveal state */
+    .section-banner.reveal {  transform: translateY(16px); }
+    .section-banner.revealed { opacity: 1; transform: none;
+      transition: opacity .65s cubic-bezier(.22,.61,.36,1),
+                  transform .65s cubic-bezier(.22,.61,.36,1); }
+
     /* ════════════════════════════
        BUTTONS
     ════════════════════════════ */
@@ -497,19 +528,15 @@ get_header();
   })();
   </script>
 
-  <!-- Banner Section -->
-  <section id="banner" class="w-full mt-20 mb-32">
-    <div style="max-width:1400px; margin-left:auto; margin-right:auto; padding-left:30px; padding-right:30px;">
-      <picture>
-        <source media="(min-width: 768px)" srcset="<?php echo get_template_directory_uri(); ?>/assets/images/banner-desktop.jpg">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-desktop.jpg"
-             alt="عوازلنا.. حماية تدوم وراحة بال مضمونة"
-             class="w-full h-auto object-cover block"
-             loading="lazy">
-      </picture>
-    </div>
-  </section><!-- /banner -->
+  <?php /* ── Banner: Insulation Services ── */ ?>
+  <div class="section-banner">
+    <picture>
+      <source media="(max-width: 767px)" srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/insulation-services-mobile.jpeg' ); ?>">
+      <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/insulation-services-desktop.jpeg' ); ?>" alt="خدمات العزل" loading="lazy" class="section-banner__img">
+    </picture>
+  </div>
 
+  
   <style>
     @media (max-width: 760px) {
       #banner > div { padding-left: 10px !important; padding-right: 10px !important; border-radius: 20px; }
@@ -549,15 +576,7 @@ get_header();
     /* Heading accent underline */
     .about-heading {
       display: inline-block;
-      position: relative;    font-size: clamp(1.6rem, 3vw, 1.95rem);
-    font-weight: 800;
-    color: #1E2D3D;
-    letter-spacing: -.02em;
-      margin-bottom: 44px;
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .65s cubic-bezier(.22,.61,.36,1),
-                  transform .65s cubic-bezier(.22,.61,.36,1);
+      position: relative;    
     }
     .about-heading::after {
       content: '';
@@ -754,6 +773,15 @@ get_header();
     </div><!-- /container -->
   </section><!-- /about -->
 
+ <?php /* ── Banner: Construction & Contracting ── */ ?>
+  <div class="section-banner">
+    <picture>
+      <source media="(max-width: 767px)" srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/construction-contracting-mobile.jpeg' ); ?>">
+      <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/construction-contracting-desktop.jpeg' ); ?>" alt="المقاولات والإنشاءات" loading="lazy" class="section-banner__img">
+    </picture>
+  </div>
+
+
   <script>
   (function () {
     /* ── About Section micro-interactions ── */
@@ -832,10 +860,6 @@ get_header();
     color: #1E2D3D;
     letter-spacing: -.02em;
       margin-bottom: 44px;
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .65s cubic-bezier(.22,.61,.36,1),
-                  transform .65s cubic-bezier(.22,.61,.36,1);
     }
     .why-grid {
           display: grid;
@@ -917,8 +941,11 @@ get_header();
       .why-col:nth-child(3)::after { display: none; }
     }
     @media (max-width: 600px) {
+      #why-us {
+    padding: 7px 24px 61px;
+    }
       .why-heading {
-        margin: 30px auto;
+        margin: 0 auto 30px auto;
         text-align: center;
       }
       .why-container { padding: 36px 24px 44px; border-radius: 20px; }
@@ -1003,6 +1030,8 @@ get_header();
       </div><!-- /why-grid -->
     </div><!-- /why-container -->
   </section><!-- /why-us -->
+
+ 
 
   <script>
   (function () {
@@ -1155,6 +1184,9 @@ get_header();
     @media (max-width: 768px) {
       .services-grid { grid-template-columns: 1fr; max-width: 420px; }
       .service-card  { aspect-ratio: 4 / 3; }
+      .services-header h2 {
+        text-align: center;
+      }
     }
     @media (min-width: 769px) and (max-width: 1024px) {
       .services-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -1173,7 +1205,7 @@ get_header();
         <div class="service-card__clip">
           <img
             class="service-card__img"
-            src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/service-leaks.jpg' ); ?>"
+            src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/service-1.jpg' ); ?>"
             alt="كشف وصيانة تسريبات المياه"
             loading="lazy"
           >
@@ -1190,7 +1222,7 @@ get_header();
         <div class="service-card__clip">
           <img
             class="service-card__img"
-            src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/about-worker.jpg' ); ?>"
+            src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/service-2.jpg' ); ?>"
             alt="أعمال العوازل"
             loading="lazy"
           >
@@ -1207,7 +1239,7 @@ get_header();
         <div class="service-card__clip">
           <img
             class="service-card__img"
-            src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/service-renovation.jpg' ); ?>"
+            src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/service-3.png' ); ?>"
             alt="ترميم وصيانة المنازل"
             loading="lazy"
           >
@@ -1221,6 +1253,14 @@ get_header();
 
     </div>
   </section><!-- /services -->
+
+   <?php /* ── Banner: Waterproofing & Humidity Control ── */ ?>
+  <div class="section-banner">
+    <picture>
+      <source media="(max-width: 767px)" srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/waterproofing-humidity-control-mobile.jpeg' ); ?>">
+      <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/waterproofing-humidity-control-desktop.jpeg' ); ?>" alt="العزل المائي ومكافحة الرطوبة" loading="lazy" class="section-banner__img">
+    </picture>
+  </div>
 
   <script>
   (function () {
@@ -1602,6 +1642,16 @@ get_header();
     </div>
   </section><!-- /results -->
 
+ 
+
+
+  <?php /* ── Banner: Renovation Service ── */ ?>
+  <div class="section-banner">
+    <picture>
+      <source media="(max-width: 767px)" srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/renovation-service-mobile.jpeg' ); ?>">
+      <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/renovation-service-desktop.jpeg' ); ?>" alt="خدمة الترميم" loading="lazy" class="section-banner__img">
+    </picture>
+  </div>
   <script>
   (function () {
     var sec = document.getElementById('results');
@@ -1831,6 +1881,7 @@ get_header();
       }
       .faq-heading {
         margin-bottom: 48px;
+        text-align: center;
       }
       .faq-btn {
         padding: 24px 0;
@@ -1839,6 +1890,7 @@ get_header();
         width: 30px;
         height: 30px;
       }
+      
     }
 
   </style>
@@ -1956,6 +2008,14 @@ get_header();
     </div>
   </section><!-- /faq -->
 
+  <?php /* ── Banner: Final Finishing ── */ ?>
+  <div class="section-banner">
+    <picture>
+      <source media="(max-width: 767px)" srcset="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/final-finishing-mobile.jpeg' ); ?>">
+      <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/banners/final-finishing-desktop.jpeg' ); ?>" alt="التشطيبات النهائية" loading="lazy" class="section-banner__img">
+    </picture>
+  </div>
+
   <script>
   (function () {
 
@@ -1998,6 +2058,998 @@ get_header();
         }
       });
     });
+
+  })();
+  </script>
+
+
+  <!-- ============================================================
+       Contact Section
+  ============================================================ -->
+  <style>
+
+    /* ── Contact Section ── */
+    #contact {
+      padding: 96px 24px 112px;
+      direction: rtl;
+      background: #fff;
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    /* ══════════════════════════════════════
+       RIGHT COLUMN — Info side
+    ══════════════════════════════════════ */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 28px;
+      text-align: right;
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity .65s cubic-bezier(.22,.61,.36,1),
+                  transform .65s cubic-bezier(.22,.61,.36,1);
+    }
+    #contact.contact-visible .contact-info {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Logo */
+    .contact-logo {
+      display: block;
+      width: auto;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    /* Welcoming text */
+    .contact-tagline {
+         font-family: 'Tajawal', sans-serif;
+    font-size: clamp(1.05rem, 2vw, 1.1rem);
+    font-weight: 600;
+    color: #454B4F;
+    line-height: 1.55;
+    margin: 0;
+    text-align: right;
+    }
+
+    /* CTA button — wide dark-blue pill */
+    .contact-cta-btn {
+     display: block;
+    width: 100%;
+    /* padding: 18px 32px; */
+    height: 40px;
+    max-width: 77%;
+    background: #0651A2;
+    color: #fff;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: .01em;
+    position: relative;
+    overflow: hidden;
+    transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
+    }
+
+    .contact-cta-btn:hover {
+      background: #053f7e;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(6,81,162,.28);
+    }
+    .contact-cta-btn:active {
+      transform: translateY(0);
+    }
+    .contact-cta-btn .cta-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      transform: scale(0);
+      animation: cta-ripple-anim .55s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @media (max-width: 700px) {
+        .contact-cta-btn  {
+          max-width: none;
+
+        }
+    }
+    @keyframes cta-ripple-anim {
+      to { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* ══════════════════════════════════════
+       LEFT COLUMN — Form side
+    ══════════════════════════════════════ */
+    .contact-form-col {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity .65s cubic-bezier(.22,.61,.36,1) .1s,
+                  transform .65s cubic-bezier(.22,.61,.36,1) .1s;
+    }
+    #contact.contact-visible .contact-form-col {
+      opacity: 1;
+      transform: none;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .cf-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cf-label {
+      font-family: 'Tajawal', sans-serif;
+      font-size: .9rem;
+      font-weight: 700;
+      color: #1E2D3D;
+      text-align: right;
+    }
+
+    .cf-input,
+    .cf-textarea {
+      font-family: 'Tajawal', sans-serif;
+      font-size: .95rem;
+      font-weight: 400;
+      color: #2C3E50;
+      background: #fff;
+      border: 1px solid #e4e8ee;
+      border-radius: 14px;
+      padding: 15px 18px;
+      text-align: right;
+      direction: rtl;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color .22s ease, box-shadow .22s ease;
+      -webkit-appearance: none;
+      resize: none;
+    }
+    .cf-input::placeholder,
+    .cf-textarea::placeholder {
+      color: #b0bac6;
+      font-weight: 400;
+    }
+    .cf-input:focus,
+    .cf-textarea:focus {
+      border-color: #0651A2;
+      box-shadow: 0 0 0 3px rgba(6,81,162,.1);
+    }
+
+    .cf-textarea {
+      min-height: 148px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 767px) {
+      #contact {
+        padding: 72px 20px 88px;
+      }
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .contact-info {
+        order: 1;
+        transform: translateY(20px);
+        align-items: stretch;
+      }
+      .contact-form-col {
+        order: 2;
+        transform: translateY(20px);
+      }
+      .contact-logo {
+        height: 64px;
+      }
+    }
+
+  </style>
+
+  <section id="contact">
+    <div class="contact-inner">
+
+      <!-- RIGHT: Info side -->
+      <div class="contact-info">
+        <img
+          class="contact-logo"
+          src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>"
+          alt="<?php bloginfo('name'); ?>"
+          width="160"
+          height="80"
+        >
+
+        <p class="contact-tagline">
+          نحن هنا للإجابة على جميع استفساراتكم ومساعدتكم.<br>
+          يرجى ملء النموذج أدناه، وسنقوم بالرد عليكم في أسرع وقت ممكن.
+        </p>
+
+        <button type="submit" form="contact-form" class="contact-cta-btn">
+          اطلب خدماتنا
+        </button>
+      </div>
+
+      <!-- LEFT: Form side -->
+      <div class="contact-form-col">
+        <form id="contact-form" class="contact-form" novalidate>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-name">الاسم</label>
+            <input
+              class="cf-input"
+              type="text"
+              id="cf-name"
+              name="name"
+              placeholder="اكتب اسمك"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-email">البريد الإلكتروني</label>
+            <input
+              class="cf-input"
+              type="email"
+              id="cf-email"
+              name="email"
+              placeholder="البريد الإلكتروني"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-message">الرسالة</label>
+            <textarea
+              class="cf-textarea"
+              id="cf-message"
+              name="message"
+              placeholder="اترك رسالتك هنا"
+              required
+            ></textarea>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section><!-- /contact -->
+
+  <script>
+  (function () {
+
+    var sec = document.getElementById('contact');
+    if (!sec) return;
+
+    /* ── Section entrance ── */
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      sec.classList.add('contact-visible');
+      io.unobserve(sec);
+    }, { threshold: 0.1 });
+    io.observe(sec);
+
+    /* ── CTA button ink ripple ── */
+    var btn = sec.querySelector('.contact-cta-btn');
+    if (btn) {
+      btn.addEventListener('pointerdown', function (e) {
+        var r    = btn.getBoundingClientRect();
+        var size = Math.max(r.width, r.height) * 1.8;
+        var rip  = document.createElement('span');
+        rip.className = 'cta-ripple';
+        rip.style.cssText =
+          'width:'  + size + 'px;' +
+          'height:' + size + 'px;' +
+          'top:'    + (e.clientY - r.top  - size / 2) + 'px;' +
+          'left:'   + (e.clientX - r.left - size / 2) + 'px;';
+        btn.appendChild(rip);
+        setTimeout(function () { rip.remove(); }, 600);
+      });
+    }
+
+  })();
+  </script>
+
+
+  <!-- ============================================================
+       Testimonials Section — Premium Drag Carousel
+  ============================================================ -->
+  <style>
+
+    /* ══════════════════════════════════════════════════
+       TESTIMONIALS — Premium Drag Carousel
+    ══════════════════════════════════════════════════ */
+    #testimonials {
+      padding: 96px 0 112px;
+      direction: rtl;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .testi-header {
+      max-width: 1200px;
+      margin: 0 auto 56px;
+      padding: 0 48px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s cubic-bezier(.22,.61,.36,1),
+                  transform .6s cubic-bezier(.22,.61,.36,1);
+    }
+    #testimonials.testi-visible .testi-header {
+      opacity: 1;
+      transform: none;
+    }
+
+    .testi-heading {
+      font-family: 'Tajawal', sans-serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+      font-weight: 900;
+      color: #1E2D3D;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin: 0;
+    }
+    .testi-heading span {
+      color: #0651A2;
+    }
+
+    /* ── Side arrows ── */
+    .testi-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid #dde1e8;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s ease, background .2s ease,
+                  transform .2s ease, box-shadow .2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .testi-btn:hover {
+      border-color: #0651A2;
+      background: #0651A2;
+      transform: scale(1.06);
+      box-shadow: 0 4px 18px rgba(6,81,162,.22);
+    }
+    .testi-btn:hover svg path {
+      fill: #fff;
+    }
+    .testi-btn:active {
+      transform: scale(.96);
+    }
+    .testi-btn svg {
+      display: block;
+      transition: transform .2s ease;
+    }
+    .testi-btn svg path {
+      fill: #6B7280;
+      transition: fill .2s ease;
+    }
+    .testi-btn-prev svg {
+      /* RTL: prev = pointing right */
+      transform: scaleX(-1);
+    }
+    .testi-btn-next svg {
+      transform: scaleX(-1);
+    }
+
+    /* ── Outer shell: positions arrows absolutely on each side ── */
+    .testi-shell {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 72px;
+    }
+
+    /* ── Dots wrapper — centered, same max-width ── */
+    .testi-dots {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 72px;
+    }
+
+    /* ── Side nav arrows — absolute, vertically centered on card ── */
+    .testi-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid #dde1e8;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s ease, background .2s ease,
+                  box-shadow .2s ease, transform .2s ease;
+    }
+    .testi-btn-prev { right: 0; }
+    .testi-btn-next { left: 0; }
+    .testi-btn:hover {
+      border-color: #0651A2;
+      background: #0651A2;
+      box-shadow: 0 4px 18px rgba(6,81,162,.22);
+      transform: translateY(-50%) scale(1.06);
+    }
+    .testi-btn:active {
+      transform: translateY(-50%) scale(.96);
+    }
+    .testi-btn svg { display: block; transition: transform .2s ease; }
+    .testi-btn svg path { fill: #6B7280; transition: fill .2s ease; }
+    .testi-btn:hover svg path { fill: #fff; }
+    .testi-btn-next svg { transform: scaleX(1); }
+
+    /* ── Viewport / drag container ── */
+    .testi-viewport {
+      overflow: hidden;
+      cursor: grab;
+      padding: 28px 0 36px;
+      margin: -28px 0 -36px;
+    }
+    .testi-viewport:active {
+      cursor: grabbing;
+    }
+
+    /* ── Track — full-width one-card-at-a-time ── */
+    .testi-track {
+      display: flex;
+      gap: 0;
+      transition: transform .52s cubic-bezier(.22,.61,.36,1);
+      will-change: transform;
+      direction: rtl;
+    }
+    .testi-track.is-dragging {
+      transition: none;
+      cursor: grabbing;
+    }
+
+    /* ── Individual card — full viewport width of the shell ── */
+    .testi-card {
+      flex: 0 0 100%;
+      width: 100%;
+      background: #fff;
+      border: 1px solid #eaecf2;
+      border-radius: 20px;
+      padding: 36px 40px 32px;
+      box-shadow: 0 4px 32px rgba(30,45,61,.07), 0 1px 6px rgba(30,45,61,.03);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      direction: rtl;
+      user-select: none;
+      box-sizing: border-box;
+      transition: box-shadow .4s cubic-bezier(.22,.61,.36,1),
+                  border-color .4s ease;
+      /* entrance */
+      opacity: 0;
+      transform: translateY(22px);
+      /* override transition for entrance separately */
+    }
+    #testimonials.testi-visible .testi-card {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .6s cubic-bezier(.22,.61,.36,1) .1s,
+                  transform .6s cubic-bezier(.22,.61,.36,1) .1s,
+                  box-shadow .4s cubic-bezier(.22,.61,.36,1),
+                  border-color .4s ease;
+    }
+
+    /* Active card — elevated */
+    .testi-card.tc-active {
+      border-color: #c8d8f0;
+      box-shadow: 0 12px 48px rgba(6,81,162,.1), 0 2px 8px rgba(6,81,162,.06);
+    }
+
+    /* ── Card top row: avatar + name + review ── */
+    .tc-user {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tc-avatar {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c5cad6 0%, #dde1ea 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tc-avatar svg { display: block; }
+
+    .tc-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: right;
+    }
+    .tc-name {
+      font-family: 'Tajawal', sans-serif;
+      font-size: .975rem;
+      font-weight: 800;
+      color: #1E2D3D;
+      line-height: 1.2;
+    }
+    .tc-service {
+      font-family: 'Tajawal', sans-serif;
+      font-size: .8rem;
+      font-weight: 500;
+      color: #8d97a8;
+      line-height: 1;
+    }
+
+    /* ── Divider ── */
+    .tc-divider {
+      height: 1px;
+      background: #f0f2f6;
+      border: none;
+      margin: 0;
+    }
+
+    /* ── Review text ── */
+    .tc-review {
+      font-family: 'Tajawal', sans-serif;
+      font-size: .96rem;
+      font-weight: 400;
+      color: #4a5568;
+      line-height: 1.8;
+      margin: 0;
+      text-align: right;
+    }
+
+    /* ── Rating row ── */
+    .tc-rating {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .tc-stars {
+      display: flex;
+      gap: 3px;
+    }
+    .tc-stars svg {
+      display: block;
+      color: #E5A010;
+    }
+    .tc-score {
+      font-family: 'Tajawal', sans-serif;
+      font-size: .88rem;
+      font-weight: 700;
+      color: #8d97a8;
+    }
+
+    /* ── Dots indicator ── */
+    .testi-dots {
+      display: flex;
+      gap: 7px;
+      justify-content: center;
+      margin-top: 36px;
+    }
+    .testi-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #d4d8e0;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background .25s ease, width .3s cubic-bezier(.22,.61,.36,1),
+                  border-radius .3s ease;
+    }
+    .testi-dot.td-active {
+      background: #0651A2;
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ── Section entrance wrapper ── */
+    #testimonials .testi-header,
+    #testimonials .testi-viewport,
+    #testimonials .testi-dots {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .65s cubic-bezier(.22,.61,.36,1),
+                  transform .65s cubic-bezier(.22,.61,.36,1);
+    }
+    #testimonials.testi-visible .testi-header {
+      opacity: 1;
+      transform: none;
+    }
+    #testimonials.testi-visible .testi-viewport {
+      opacity: 1;
+      transform: none;
+      transition-delay: .08s;
+    }
+    #testimonials.testi-visible .testi-dots {
+      opacity: 1;
+      transform: none;
+      transition-delay: .18s;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      #testimonials { padding: 72px 0 88px; }
+      .testi-header { padding: 0 20px; margin-bottom: 40px; }
+      .testi-shell  { padding: 0 52px; }
+      .testi-btn    { width: 38px; height: 38px; }
+      .testi-card   { padding: 28px 24px 24px; }
+
+      .testi-heading {
+        margin: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      .testi-shell { padding: 0 44px; }
+      .testi-btn   { width: 34px; height: 34px; }
+      .testi-card  { padding: 24px 20px 20px; border-radius: 16px; }
+    }
+
+  </style>
+
+  <section id="testimonials">
+
+    <!-- Header -->
+    <div class="testi-header">
+      <h2 class="testi-heading">آراء <span>عملائنا</span></h2>
+    </div>
+
+    <!-- Shell: holds viewport + flanking arrows -->
+    <div class="testi-shell">
+
+      <!-- Right arrow (prev in RTL) -->
+      <button class="testi-btn testi-btn-prev" aria-label="السابق">
+         <svg width="18" height="18" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.7333 13.9866L14.3599 11.3599L18.6399 7.0799C19.5466 6.18657 21.0933 6.82657 21.0933 8.10657V16.4132V23.8932C21.0933 25.1732 19.5466 25.8132 18.6399 24.9066L11.7333 17.9999C10.6266 16.9066 10.6266 15.0932 11.7333 13.9866Z"/>
+        </svg>
+      </button>
+
+      <!-- Left arrow (next in RTL) -->
+      <button class="testi-btn testi-btn-next" aria-label="التالي">
+        <svg width="18" height="18" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.7333 13.9866L14.3599 11.3599L18.6399 7.0799C19.5466 6.18657 21.0933 6.82657 21.0933 8.10657V16.4132V23.8932C21.0933 25.1732 19.5466 25.8132 18.6399 24.9066L11.7333 17.9999C10.6266 16.9066 10.6266 15.0932 11.7333 13.9866Z"/>
+        </svg>
+      </button>
+
+      <!-- Drag viewport -->
+      <div class="testi-viewport" role="region" aria-label="آراء العملاء">
+      <div class="testi-track">
+
+        <!-- Card 1 -->
+        <div class="testi-card tc-active">
+          <div class="tc-user">
+            <div class="tc-avatar">
+              <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.2398 16.305C18.0898 16.29 17.9098 16.29 17.7448 16.305C14.1748 16.185 11.3398 13.26 11.3398 9.66C11.3398 5.985 14.3098 3 17.9998 3C21.6748 3 24.6598 5.985 24.6598 9.66C24.6448 13.26 21.8098 16.185 18.2398 16.305Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.7401 21.84C7.11008 24.27 7.11008 28.23 10.7401 30.645C14.8651 33.405 21.6301 33.405 25.7551 30.645C29.3851 28.215 29.3851 24.255 25.7551 21.84C21.6451 19.095 14.8801 19.095 10.7401 21.84Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tc-meta">
+              <span class="tc-name">محمد محمود</span>
+              <span class="tc-service">كشف تسريبات</span>
+            </div>
+          </div>
+          <hr class="tc-divider">
+          <p class="tc-review">شغل عظيم — الفريق وصل في الموعد، كشفوا التسريب بدقة دون أي تكسير. خدمة احترافية بكل معنى الكلمة.</p>
+          <div class="tc-rating">
+            <div class="tc-stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="tc-score">5.0</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="testi-card">
+          <div class="tc-user">
+            <div class="tc-avatar">
+              <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.2398 16.305C18.0898 16.29 17.9098 16.29 17.7448 16.305C14.1748 16.185 11.3398 13.26 11.3398 9.66C11.3398 5.985 14.3098 3 17.9998 3C21.6748 3 24.6598 5.985 24.6598 9.66C24.6448 13.26 21.8098 16.185 18.2398 16.305Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.7401 21.84C7.11008 24.27 7.11008 28.23 10.7401 30.645C14.8651 33.405 21.6301 33.405 25.7551 30.645C29.3851 28.215 29.3851 24.255 25.7551 21.84C21.6451 19.095 14.8801 19.095 10.7401 21.84Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tc-meta">
+              <span class="tc-name">أحمد العتيبي</span>
+              <span class="tc-service">عزل مائي</span>
+            </div>
+          </div>
+          <hr class="tc-divider">
+          <p class="tc-review">تم كشف التسريب بدقة عالية دون أي تكسير، وبأسرع وقت ممكن. أنصح بهم لكل من يعاني من مشاكل المياه.</p>
+          <div class="tc-rating">
+            <div class="tc-stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="tc-score">5.0</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="testi-card">
+          <div class="tc-user">
+            <div class="tc-avatar">
+              <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.2398 16.305C18.0898 16.29 17.9098 16.29 17.7448 16.305C14.1748 16.185 11.3398 13.26 11.3398 9.66C11.3398 5.985 14.3098 3 17.9998 3C21.6748 3 24.6598 5.985 24.6598 9.66C24.6448 13.26 21.8098 16.185 18.2398 16.305Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.7401 21.84C7.11008 24.27 7.11008 28.23 10.7401 30.645C14.8651 33.405 21.6301 33.405 25.7551 30.645C29.3851 28.215 29.3851 24.255 25.7551 21.84C21.6451 19.095 14.8801 19.095 10.7401 21.84Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tc-meta">
+              <span class="tc-name">سارة الشمري</span>
+              <span class="tc-service">عزل حراري</span>
+            </div>
+          </div>
+          <hr class="tc-divider">
+          <p class="tc-review">عزل ممتاز للسطح، الفريق محترم وملتزم بالمواعيد. لاحظنا فرقاً واضحاً في درجة الحرارة داخل المنزل. سأتعامل معهم مجدداً.</p>
+          <div class="tc-rating">
+            <div class="tc-stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="tc-score">5.0</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="testi-card">
+          <div class="tc-user">
+            <div class="tc-avatar">
+              <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.2398 16.305C18.0898 16.29 17.9098 16.29 17.7448 16.305C14.1748 16.185 11.3398 13.26 11.3398 9.66C11.3398 5.985 14.3098 3 17.9998 3C21.6748 3 24.6598 5.985 24.6598 9.66C24.6448 13.26 21.8098 16.185 18.2398 16.305Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.7401 21.84C7.11008 24.27 7.11008 28.23 10.7401 30.645C14.8651 33.405 21.6301 33.405 25.7551 30.645C29.3851 28.215 29.3851 24.255 25.7551 21.84C21.6451 19.095 14.8801 19.095 10.7401 21.84Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tc-meta">
+              <span class="tc-name">فيصل الدوسري</span>
+              <span class="tc-service">ترميم وصيانة</span>
+            </div>
+          </div>
+          <hr class="tc-divider">
+          <p class="tc-review">تعاملت معهم في مشروع عزل حراري للسقف وكانت النتائج رائعة. أسعار منافسة وجودة عالية، وفريق العمل متعاون جداً.</p>
+          <div class="tc-rating">
+            <div class="tc-stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="tc-score">5.0</span>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="testi-card">
+          <div class="tc-user">
+            <div class="tc-avatar">
+              <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.2398 16.305C18.0898 16.29 17.9098 16.29 17.7448 16.305C14.1748 16.185 11.3398 13.26 11.3398 9.66C11.3398 5.985 14.3098 3 17.9998 3C21.6748 3 24.6598 5.985 24.6598 9.66C24.6448 13.26 21.8098 16.185 18.2398 16.305Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10.7401 21.84C7.11008 24.27 7.11008 28.23 10.7401 30.645C14.8651 33.405 21.6301 33.405 25.7551 30.645C29.3851 28.215 29.3851 24.255 25.7551 21.84C21.6451 19.095 14.8801 19.095 10.7401 21.84Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="tc-meta">
+              <span class="tc-name">نورة القحطاني</span>
+              <span class="tc-service">كشف تسريبات</span>
+            </div>
+          </div>
+          <hr class="tc-divider">
+          <p class="tc-review">سرعة الاستجابة كانت مذهلة — وصلوا خلال ساعتين من الاتصال وحلّوا المشكلة بشكل نهائي. شكراً جزيلاً لكم.</p>
+          <div class="tc-rating">
+            <div class="tc-stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="tc-score">5.0</span>
+          </div>
+        </div>
+
+      </div><!-- /testi-track -->
+      </div><!-- /testi-viewport -->
+
+    </div><!-- /testi-shell -->
+
+    <!-- Dots -->
+    <div class="testi-dots" role="tablist" aria-label="انتقل إلى التقييم">
+      <button class="testi-dot td-active" aria-label="1" role="tab"></button>
+      <button class="testi-dot" aria-label="2" role="tab"></button>
+      <button class="testi-dot" aria-label="3" role="tab"></button>
+      <button class="testi-dot" aria-label="4" role="tab"></button>
+      <button class="testi-dot" aria-label="5" role="tab"></button>
+    </div>
+
+  </section><!-- /testimonials -->
+
+  <script>
+  (function () {
+
+    var sec      = document.getElementById('testimonials');
+    if (!sec) return;
+
+    var viewport = sec.querySelector('.testi-viewport');
+    var track    = sec.querySelector('.testi-track');
+    var cards    = Array.prototype.slice.call(track.querySelectorAll('.testi-card'));
+    var dots     = Array.prototype.slice.call(sec.querySelectorAll('.testi-dot'));
+    var btnPrev  = sec.querySelector('.testi-btn-prev');
+    var btnNext  = sec.querySelector('.testi-btn-next');
+    var total    = cards.length;
+    var current  = 0;
+
+    /* ── Section entrance ── */
+    var entryIO = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      sec.classList.add('testi-visible');
+      entryIO.unobserve(sec);
+    }, { threshold: 0.08 });
+    entryIO.observe(sec);
+
+    /* ── Compute card width — one card = full viewport width ── */
+    function cardWidth() {
+      return viewport.getBoundingClientRect().width;
+    }
+
+    /* ── Apply transform to track ── */
+    function applyOffset(offset) {
+      /* RTL flex: card 0 is rightmost. To show card N shift track right by N * cardWidth */
+      track.style.transform = 'translateX(' + offset + 'px)';
+    }
+
+    /* ── Update active states ── */
+    function updateActive() {
+      cards.forEach(function (c, i) {
+        c.classList.toggle('tc-active', i === current);
+      });
+      dots.forEach(function (d, i) {
+        d.classList.toggle('td-active', i === current);
+      });
+    }
+
+    /* ── Animate to index ── */
+    function goTo(idx) {
+      current = Math.max(0, Math.min(total - 1, idx));
+      var cw  = cardWidth();
+      /* In RTL flex, the first card is on the right — moving to index N
+         means shifting the track to the RIGHT by N * cardWidth */
+      applyOffset(current * cw);
+      updateActive();
+    }
+
+    /* ── Button clicks ── */
+    btnPrev.addEventListener('click', function () {
+      goTo(current + 1);
+    });
+    btnNext.addEventListener('click', function () {
+      goTo(current - 1);
+    });
+
+    /* ── Dot clicks ── */
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { goTo(i); });
+    });
+
+    /* ── DRAG — mouse ── */
+    var isDragging = false;
+    var dragStartX = 0;
+    var dragBaseOffset = 0;
+
+    function currentOffset() {
+      var mat = window.getComputedStyle(track).transform;
+      if (!mat || mat === 'none') return 0;
+      return parseFloat(mat.split(',')[4]) || 0;
+    }
+
+    viewport.addEventListener('mousedown', function (e) {
+      isDragging    = true;
+      dragStartX    = e.clientX;
+      dragBaseOffset = currentOffset();
+      track.classList.add('is-dragging');
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      var dx = e.clientX - dragStartX;
+      /* live drag — no snap, just follow finger */
+      track.style.transform = 'translateX(' + (dragBaseOffset + dx) + 'px)';
+    });
+
+    window.addEventListener('mouseup', function (e) {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+      var dx = e.clientX - dragStartX;
+      var cw = cardWidth();
+      if (Math.abs(dx) > cw * 0.18) {
+        if (dx < 0) {
+          goTo(current - 1);
+        } else {
+          goTo(current + 1);
+        }
+      } else {
+        goTo(current); /* snap back */
+      }
+    });
+
+    /* ── DRAG — touch ── */
+    var touchStartX = 0;
+
+    viewport.addEventListener('touchstart', function (e) {
+      touchStartX   = e.touches[0].clientX;
+      dragBaseOffset = currentOffset();
+      track.classList.add('is-dragging');
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (e) {
+      var dx = e.touches[0].clientX - touchStartX;
+      track.style.transform = 'translateX(' + (dragBaseOffset + dx) + 'px)';
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function (e) {
+      track.classList.remove('is-dragging');
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var cw = cardWidth();
+      if (Math.abs(dx) > cw * 0.18) {
+        goTo(dx > 0 ? current + 1 : current - 1);
+      } else {
+        goTo(current);
+      }
+    }, { passive: true });
+
+    /* ── Re-snap on resize ── */
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () { goTo(current); }, 120);
+    });
+
+    /* ── Init ── */
+    updateActive();
 
   })();
   </script>
