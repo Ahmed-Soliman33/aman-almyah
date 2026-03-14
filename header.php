@@ -182,7 +182,7 @@ tailwind.config = {
 <!-- ============================================================
      Sticky Navbar
      ============================================================ -->
-<header class="fixed top-6 inset-x-0 z-50 bg-white border-b border-gray-100 shadow-sm" style="height:var(--header-height)">
+<header class="fixed top-0 inset-x-0 z-50 bg-white border-b border-gray-100 shadow-sm" style="height:var(--header-height)">
   <nav class="max-w-[1400px] mx-auto h-full px-6 flex items-center justify-between">
 
     <!-- RIGHT (RTL): Logo + Nav links together -->
